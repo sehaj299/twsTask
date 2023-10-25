@@ -24,20 +24,18 @@ function App() {
     setCart([...cart, selectedProduct]);
     console.log("cart", cart);
   };
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("./data.json");
-     
-      const data = await response.json();
-     
-      setProducts(data.posts);
-      console.log(products)
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
-    fetchProducts();
+    const fetchData = async () => {
+      try {
+        const response = await fetch("./data.json");
+        const data = await response.json();
+        setProducts(data.posts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchData();
   }, []);
   return (
     <Router>
