@@ -26,9 +26,12 @@ function App() {
   };
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/posts");
+      const response = await fetch("./data.json");
+     
       const data = await response.json();
-      setProducts(data);
+     
+      setProducts(data.posts);
+      console.log(products)
     } catch (error) {
       console.log(error);
     }
