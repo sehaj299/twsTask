@@ -1,24 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import CheckoutPage from "./component/CheckPage";
+import { Routes } from "react-router-dom";
+import ProductListing from "./component/PrductListing";
+import ReviewOrderPage from "./component/ReviewOrderPage";
+import Header from "./Header";
 
 function App() {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [values, setValues] = useState([]);
+  const handleValues = (values) => {
+    setValues(values);
+  };
+  const addToCart = (productId) => {
+    const updatedProducts = products.map((product) =>
+      product.id === productId ? { ...product, inCart: true } : product
+    );
+    setProducts(updatedProducts);
+    const selectedProduct = products.find(
+      (product) => product.id === productId
+    );
+    setCart([...cart, selectedProduct]);
+    console.log("cart", cart);
+  };
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/posts");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Header/>
+      <Routes>
+        <Route
+          path="/"
+          element={<ProductListing products={products} addToCart={addToCart} />}
+        />
+        <Route
+          path="/checkout"
+          element={<CheckoutPage cart={cart} handleValues={handleValues} />}
+        />
+        <Route
+          path="/checkout/review"
+          element={<ReviewOrderPage cart={cart} values={values} />}
+        />
+      </Routes>
+      </div>
+     
+    </Router>
   );
 }
 
