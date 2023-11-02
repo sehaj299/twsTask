@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import ModalForm from "./ModalForm";
 import { useNavigate } from "react-router-dom";
 
-
-const CheckoutPage = ({ cart, handleValues }) => {
+const CheckoutPage = ({ cart, handleCustomerInfo }) => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // handle openModal
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-
+  // handle closeModal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  const handleSubmit = (values, actions) => {
-    handleValues(values);
+  // handle submit of form
+  const handleSubmit = (values) => {
+    handleCustomerInfo(values);
     navigate("review");
-
     setIsModalOpen(false);
   };
 

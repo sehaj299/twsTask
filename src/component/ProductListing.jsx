@@ -9,7 +9,7 @@ const ProductListing = ({ addToCart, products }) => {
     <div>
 
       <h2>Product Listing</h2>
-      {console.log(products)}
+      
       {products.map((product) => (
         <div key={product.id}>
           <h3>Name: {product.title}</h3>

@@ -2,7 +2,7 @@
 import React from "react";
 
 
-const ReviewOrderPage = ({ cart, values }) => {
+const ReviewOrderPage = ({ cart, customerInfo }) => {
   return (
     <div>
       <h2>Review and Submit Order Page</h2>
@@ -16,10 +16,10 @@ const ReviewOrderPage = ({ cart, values }) => {
         ))}
       </ul>
       <h3>Customer Information:</h3>
-      <p>First Name: {values.firstName}</p>
-      <p>last Name: {values.lastName}</p>
-      <p>phone : {values.phone}</p>
-      <p>email: {values.email}</p>
+      <p>First Name: {customerInfo.firstName}</p>
+      <p>Last Name: {customerInfo.lastName}</p>
+      <p>Phone: {customerInfo.phone}</p>
+      <p>Email: {customerInfo.email}</p>
     </div>
   );
 };
